@@ -1,9 +1,9 @@
 {
     "name": "foostart/package-pexcel",
-    "description": "Manage pexcel",
+    "description": "Create overview sample can intergrate other project",
     "keywords": [
         "foostart",
-        "laravel 5 package pexcel"
+        "laravel 5 package sample"
     ],
     "authors": [
         {
