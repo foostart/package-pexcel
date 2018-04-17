@@ -23,19 +23,19 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `samples`
+-- Table structure for table `pexcels`
 --
 
-CREATE TABLE `samples` (
-  `sample_id` int(11) NOT NULL,
+CREATE TABLE `pexcels` (
+  `pexcel_id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `user_full_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL,
-  `sample_name` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
-  `sample_overview` varchar(500) CHARACTER SET utf8 DEFAULT NULL,
-  `sample_description` text CHARACTER SET utf8,
-  `sample_slug` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `sample_image` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `pexcel_name` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `pexcel_overview` varchar(500) CHARACTER SET utf8 DEFAULT NULL,
+  `pexcel_description` text CHARACTER SET utf8,
+  `pexcel_slug` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `pexcel_image` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -45,20 +45,20 @@ CREATE TABLE `samples` (
 --
 
 --
--- Indexes for table `samples`
+-- Indexes for table `pexcels`
 --
-ALTER TABLE `samples`
-  ADD PRIMARY KEY (`sample_id`);
+ALTER TABLE `pexcels`
+  ADD PRIMARY KEY (`pexcel_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `samples`
+-- AUTO_INCREMENT for table `pexcels`
 --
-ALTER TABLE `samples`
-  MODIFY `sample_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `pexcels`
+  MODIFY `pexcel_id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

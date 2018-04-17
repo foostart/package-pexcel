@@ -1,6 +1,6 @@
 <?php
 
-namespace Foostart\Sample\Controlers\Admin;
+namespace Foostart\Pexcel\Controlers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 use URL,
     Route,
     Redirect;
-use Foostart\Sample\Models\Samples;
+use Foostart\Pexcel\Models\Pexcels;
 
-class SampleFrontController extends Controller
+class PexcelFrontController extends Controller
 {
     public $data = array();
     public function __construct() {
@@ -20,13 +20,13 @@ class SampleFrontController extends Controller
     public function index(Request $request)
     {
 
-        $obj_sample = new Samples();
-        $samples = $obj_sample->get_samples();
+        $obj_pexcel = new Pexcels();
+        $pexcels = $obj_pexcel->get_pexcels();
         $this->data = array(
             'request' => $request,
-            'samples' => $samples
+            'pexcels' => $pexcels
         );
-        return view('sample::sample.index', $this->data);
+        return view('pexcel::pexcel.index', $this->data);
     }
 
 }

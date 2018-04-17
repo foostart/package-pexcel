@@ -10,7 +10,7 @@ return [
     |
     */
     'menus' => [
-        'top-menu' => 'Samples'
+        'top-menu' => 'Pexcels'
     ],
 
 
@@ -31,7 +31,7 @@ return [
         'add' => 'Add new',
         'trash' => 'Trash',
         'config' => 'Configurations',
-        'lang' => 'Languages',
+        'lang' => 'Language',
     ],
 
 
@@ -47,7 +47,7 @@ return [
     */
     'columns' => [
         'order' => '#',
-        'name' => 'Sample name',
+        'name' => 'Pexcel name',
         'operations' => 'Operations',
         'updated_at' => 'Updated at',
         'filename' => 'File name',
@@ -62,13 +62,13 @@ return [
     |
     */
     'pages' => [
-        'title-list' => 'List of samples',
+        'title-list' => 'List of pexcels',
         'title-list-search' => 'Search results',
-        'title-edit' => 'Edit sample',
-        'title-add' => 'Add new sample',
-        'title-delete' => 'Delete sample',
+        'title-edit' => 'Edit pexcel',
+        'title-add' => 'Add new pexcel',
+        'title-delete' => 'Delete pexcel',
         'title-config' => 'Current configurations',
-        'title-lang' => 'Manage languages',
+        'title-lang' => 'Language',
     ],
 
 
@@ -121,8 +121,8 @@ return [
     |
     */
     'description' => [
-        'form' => 'Sample form',
-        'update' => 'Update sample',
+        'form' => 'Pexcel form',
+        'update' => 'Update pexcel',
         'name' => '<blockquote class="quote-card">
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -170,8 +170,8 @@ return [
     |
     */
     'fields' => [
-        'id' => 'Sample ID',
-        'name' => 'Sample name',
+        'id' => 'Pexcel ID',
+        'name' => 'Pexcel name',
         'description' => 'Description',
         'overview' => 'Overview',
         'slug' => 'Slug',
@@ -191,9 +191,9 @@ return [
     |
     */
     'labels' => [
-        'name' => 'Sample name',
+        'name' => 'Pexcel name',
         'category' => 'Category name',
-        'title-search' => 'Search sample',
+        'title-search' => 'Search pexcel',
         'title-backup' => 'Backups',
         'config' => 'Configurations',
     ],
@@ -235,8 +235,8 @@ return [
     |
     */
     'headings' => [
-        'form-search' => 'Search samples',
-        'list' => 'List of samples',
+        'form-search' => 'Search pexcels',
+        'list' => 'List of pexcels',
         'search' => 'Search results',
     ],
 

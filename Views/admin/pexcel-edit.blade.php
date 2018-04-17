@@ -1,7 +1,7 @@
 <!--
 | @TITLE
-| Update existing sample
-| Add new sample
+| Update existing pexcel
+| Add new pexcel
 |
 |-------------------------------------------------------------------------------
 | @REQUIRED
@@ -65,7 +65,7 @@
                     <div class="row">
                         <div class="col-md-12 col-xs-12">
 
-                            @include('package-sample::admin.sample-form')
+                            @include('package-pexcel::admin.pexcel-form')
 
                         </div>
                     </div>
@@ -74,7 +74,7 @@
         </div>
 
         <div class='col-md-4'>
-            @include('package-sample::admin.sample-search')
+            @include('package-pexcel::admin.pexcel-search')
         </div>
 
     </div>

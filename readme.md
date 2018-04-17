@@ -1,6 +1,6 @@
 @webiste: http://foostart.com
 
-@package-name: sample
+@package-name: pexcel
 @author: Kang
 @date: 27/12/2017
 @version: 2.0

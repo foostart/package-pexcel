@@ -10,25 +10,25 @@ use LaravelAcl\Authentication\Classes\Menu\SentryMenuFactory;
 |   $sidebar_items
 |   $sorting
 |   $order_by
-|   $plang_admin = 'sample-admin'
-|   $plang_front = 'sample-front'
+|   $plang_admin = 'pexcel-admin'
+|   $plang_front = 'pexcel-front'
 */
 View::composer([
-                'package-sample::admin.sample-edit',
-                'package-sample::admin.sample-form',
-                'package-sample::admin.sample-items',
-                'package-sample::admin.sample-item',
-                'package-sample::admin.sample-search',
-                'package-sample::admin.sample-config',
-                'package-sample::admin.sample-lang',
+                'package-pexcel::admin.pexcel-edit',
+                'package-pexcel::admin.pexcel-form',
+                'package-pexcel::admin.pexcel-items',
+                'package-pexcel::admin.pexcel-item',
+                'package-pexcel::admin.pexcel-search',
+                'package-pexcel::admin.pexcel-config',
+                'package-pexcel::admin.pexcel-lang',
     ], function ($view) {
 
         /**
          * $plang-admin
          * $plang-front
          */
-        $plang_admin = 'sample-admin';
-        $plang_front = 'sample-front';
+        $plang_admin = 'pexcel-admin';
+        $plang_front = 'pexcel-front';
 
         $view->with('plang_admin', $plang_admin);
         $view->with('plang_front', $plang_front);
@@ -37,20 +37,20 @@ View::composer([
          * $sidebar_items
          */
         $view->with('sidebar_items', [
-            trans('sample-admin.sidebar.add') => [
-                'url' => URL::route('samples.edit', []),
+            trans('pexcel-admin.sidebar.add') => [
+                'url' => URL::route('pexcels.edit', []),
                 'icon' => '<i class="fa fa-pencil-square-o" aria-hidden="true"></i>'
             ],
-            trans('sample-admin.sidebar.list') => [
-                "url" => URL::route('samples.list', []),
+            trans('pexcel-admin.sidebar.list') => [
+                "url" => URL::route('pexcels.list', []),
                 'icon' => '<i class="fa fa-list-ul" aria-hidden="true"></i>'
             ],
-            trans('sample-admin.sidebar.config') => [
-                "url" => URL::route('samples.config', []),
+            trans('pexcel-admin.sidebar.config') => [
+                "url" => URL::route('pexcels.config', []),
                 'icon' => '<i class="fa fa-braille" aria-hidden="true"></i>'
             ],
-            trans('sample-admin.sidebar.lang') => [
-                "url" => URL::route('samples.lang', []),
+            trans('pexcel-admin.sidebar.lang') => [
+                "url" => URL::route('pexcels.lang', []),
                 'icon' => '<i class="fa fa-language" aria-hidden="true"></i>'
             ],
         ]);
@@ -62,7 +62,7 @@ View::composer([
         $orders = [
             '' => trans($plang_admin.'.form.no-selected'),
             'id' => trans($plang_admin.'.fields.id'),
-            'sample_name' => trans($plang_admin.'.fields.name'),
+            'pexcel_name' => trans($plang_admin.'.fields.name'),
             'updated_at' => trans($plang_admin.'.fields.updated_at'),
         ];
         $sorting = [

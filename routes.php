@@ -5,9 +5,9 @@ use Illuminate\Session\TokenMismatchException;
 /**
  * FRONT
  */
-Route::get('sample', [
-    'as' => 'sample',
-    'uses' => 'Foostart\Sample\Controllers\Front\SampleFrontController@index'
+Route::get('pexcel', [
+    'as' => 'pexcel',
+    'uses' => 'Foostart\Pexcel\Controllers\Front\PexcelFrontController@index'
 ]);
 
 
@@ -17,17 +17,17 @@ Route::get('sample', [
 Route::group(['middleware' => ['web']], function () {
 
     Route::group(['middleware' => ['admin_logged', 'can_see', 'in_context'],
-                  'namespace' => 'Foostart\Sample\Controllers\Admin',
+                  'namespace' => 'Foostart\Pexcel\Controllers\Admin',
         ], function () {
 
         /*
           |-----------------------------------------------------------------------
-          | Manage sample
+          | Manage pexcel
           |-----------------------------------------------------------------------
-          | 1. List of samples
-          | 2. Edit sample
-          | 3. Delete sample
-          | 4. Add new sample
+          | 1. List of pexcels
+          | 2. Edit pexcel
+          | 3. Delete pexcel
+          | 4. Add new pexcel
           | 5. Manage configurations
           | 6. Manage languages
           |
@@ -36,75 +36,75 @@ Route::group(['middleware' => ['web']], function () {
         /**
          * list
          */
-        Route::get('admin/samples/list', [
-            'as' => 'samples.list',
-            'uses' => 'SampleAdminController@index'
+        Route::get('admin/pexcels/list', [
+            'as' => 'pexcels.list',
+            'uses' => 'PexcelAdminController@index'
         ]);
 
         /**
          * edit-add
          */
-        Route::get('admin/samples/edit', [
-            'as' => 'samples.edit',
-            'uses' => 'SampleAdminController@edit'
+        Route::get('admin/pexcels/edit', [
+            'as' => 'pexcels.edit',
+            'uses' => 'PexcelAdminController@edit'
         ]);
 
         /**
          * copy
          */
-        Route::get('admin/samples/copy', [
-            'as' => 'samples.copy',
-            'uses' => 'SampleAdminController@copy'
+        Route::get('admin/pexcels/copy', [
+            'as' => 'pexcels.copy',
+            'uses' => 'PexcelAdminController@copy'
         ]);
 
         /**
          * post
          */
-        Route::post('admin/samples/edit', [
-            'as' => 'samples.post',
-            'uses' => 'SampleAdminController@post'
+        Route::post('admin/pexcels/edit', [
+            'as' => 'pexcels.post',
+            'uses' => 'PexcelAdminController@post'
         ]);
 
         /**
          * delete
          */
-        Route::get('admin/samples/delete', [
-            'as' => 'samples.delete',
-            'uses' => 'SampleAdminController@delete'
+        Route::get('admin/pexcels/delete', [
+            'as' => 'pexcels.delete',
+            'uses' => 'PexcelAdminController@delete'
         ]);
 
         /**
          * trash
          */
-         Route::get('admin/samples/trash', [
-            'as' => 'samples.trash',
-            'uses' => 'SampleAdminController@trash'
+         Route::get('admin/pexcels/trash', [
+            'as' => 'pexcels.trash',
+            'uses' => 'PexcelAdminController@trash'
         ]);
 
         /**
          * configs
         */
-        Route::get('admin/samples/config', [
-            'as' => 'samples.config',
-            'uses' => 'SampleAdminController@config'
+        Route::get('admin/pexcels/config', [
+            'as' => 'pexcels.config',
+            'uses' => 'PexcelAdminController@config'
         ]);
 
-        Route::post('admin/samples/config', [
-            'as' => 'samples.config',
-            'uses' => 'SampleAdminController@config'
+        Route::post('admin/pexcels/config', [
+            'as' => 'pexcels.config',
+            'uses' => 'PexcelAdminController@config'
         ]);
 
         /**
          * language
         */
-        Route::get('admin/samples/lang', [
-            'as' => 'samples.lang',
-            'uses' => 'SampleAdminController@lang'
+        Route::get('admin/pexcels/lang', [
+            'as' => 'pexcels.lang',
+            'uses' => 'PexcelAdminController@lang'
         ]);
 
-        Route::post('admin/samples/lang', [
-            'as' => 'samples.lang',
-            'uses' => 'SampleAdminController@lang'
+        Route::post('admin/pexcels/lang', [
+            'as' => 'pexcels.lang',
+            'uses' => 'PexcelAdminController@lang'
         ]);
 
     });

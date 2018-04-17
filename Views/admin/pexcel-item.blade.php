@@ -31,7 +31,7 @@
             </th>
 
             <!-- NAME -->
-            <?php $name = 'sample_name' ?>
+            <?php $name = 'pexcel_name' ?>
 
             <th class="hidden-xs" style='width:{{ $withs['name'] }}'>{!! trans($plang_admin.'.columns.name') !!}
                 <a href='{!! $sorting["url"][$name] !!}' class='tb-id' data-order='asc'>
@@ -89,7 +89,7 @@
                 <td> <?php echo $counter; $counter++ ?> </td>
 
                 <!--NAME-->
-                <td> {!! $item->sample_name !!} </td>
+                <td> {!! $item->pexcel_name !!} </td>
 
                 <!--UPDATED AT-->
                 <td> {!! $item->updated_at !!} </td>
@@ -97,7 +97,7 @@
                 <!--OPERATOR-->
                 <td>
                     <!--edit-->
-                    <a href="{!! URL::route('samples.edit', [   'id' => $item->id,
+                    <a href="{!! URL::route('pexcels.edit', [   'id' => $item->id,
                                                                 '_token' => csrf_token()
                                                             ])
                             !!}">
@@ -105,7 +105,7 @@
                     </a>
 
                     <!--copy-->
-                    <a href="{!! URL::route('samples.copy',[    'cid' => $item->id,
+                    <a href="{!! URL::route('pexcels.copy',[    'cid' => $item->id,
                                                                 '_token' => csrf_token(),
                                                             ])
                              !!}"
@@ -114,7 +114,7 @@
                     </a>
 
                     <!--delete-->
-                    <a href="{!! URL::route('samples.delete',[  'id' => $item->id,
+                    <a href="{!! URL::route('pexcels.delete',[  'id' => $item->id,
                                                                 '_token' => csrf_token(),
                                                               ])
                              !!}"
@@ -153,5 +153,5 @@
 
 @section('footer_scripts')
     @parent
-    {!! HTML::script('packages/foostart/package-sample/js/form-table.js')  !!}
+    {!! HTML::script('packages/foostart/package-pexcel/js/form-table.js')  !!}
 @stop
