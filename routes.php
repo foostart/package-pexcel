@@ -5,9 +5,9 @@ use Illuminate\Session\TokenMismatchException;
 /**
  * FRONT
  */
-Route::get('sample', [
-    'as' => 'sample',
-    'uses' => 'Foostart\Sample\Controllers\Front\SampleFrontController@index'
+Route::get('pexcel', [
+    'as' => 'pexcel',
+    'uses' => 'Foostart\Pexcel\Controllers\Front\PexcelFrontController@index'
 ]);
 
 
@@ -24,33 +24,33 @@ Route::group(['middleware' => ['web']], function () {
         /**
          * list
          */
-        Route::get('admin/sample', [
-            'as' => 'admin_sample',
-            'uses' => 'Foostart\Sample\Controllers\Admin\SampleAdminController@index'
+        Route::get('admin/pexcel', [
+            'as' => 'admin_pexcel',
+            'uses' => 'Foostart\Pexcel\Controllers\Admin\PexcelAdminController@index'
         ]);
 
         /**
          * edit-add
          */
-        Route::get('admin/sample/edit', [
-            'as' => 'admin_sample.edit',
-            'uses' => 'Foostart\Sample\Controllers\Admin\SampleAdminController@edit'
+        Route::get('admin/pexcel/edit', [
+            'as' => 'admin_pexcel.edit',
+            'uses' => 'Foostart\Pexcel\Controllers\Admin\PexcelAdminController@edit'
         ]);
 
         /**
          * post
          */
-        Route::post('admin/sample/edit', [
-            'as' => 'admin_sample.post',
-            'uses' => 'Foostart\Sample\Controllers\Admin\SampleAdminController@post'
+        Route::post('admin/pexcel/edit', [
+            'as' => 'admin_pexcel.post',
+            'uses' => 'Foostart\Pexcel\Controllers\Admin\PexcelAdminController@post'
         ]);
 
         /**
          * delete
          */
-        Route::get('admin/sample/delete', [
-            'as' => 'admin_sample.delete',
-            'uses' => 'Foostart\Sample\Controllers\Admin\SampleAdminController@delete'
+        Route::get('admin/pexcel/delete', [
+            'as' => 'admin_pexcel.delete',
+            'uses' => 'Foostart\Pexcel\Controllers\Admin\PexcelAdminController@delete'
         ]);
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////SAMPLES ROUTE///////////////////////////////
@@ -63,32 +63,32 @@ Route::group(['middleware' => ['web']], function () {
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////CATEGORIES///////////////////////////////
         ////////////////////////////////////////////////////////////////////////
-         Route::get('admin/sample_category', [
-            'as' => 'admin_sample_category',
-            'uses' => 'Foostart\Sample\Controllers\Admin\SampleCategoryAdminController@index'
+         Route::get('admin/pexcel_category', [
+            'as' => 'admin_pexcel_category',
+            'uses' => 'Foostart\Pexcel\Controllers\Admin\PexcelCategoryAdminController@index'
         ]);
 
         /**
          * edit-add
          */
-        Route::get('admin/sample_category/edit', [
-            'as' => 'admin_sample_category.edit',
-            'uses' => 'Foostart\Sample\Controllers\Admin\SampleCategoryAdminController@edit'
+        Route::get('admin/pexcel_category/edit', [
+            'as' => 'admin_pexcel_category.edit',
+            'uses' => 'Foostart\Pexcel\Controllers\Admin\PexcelCategoryAdminController@edit'
         ]);
 
         /**
          * post
          */
-        Route::post('admin/sample_category/edit', [
-            'as' => 'admin_sample_category.post',
-            'uses' => 'Foostart\Sample\Controllers\Admin\SampleCategoryAdminController@post'
+        Route::post('admin/pexcel_category/edit', [
+            'as' => 'admin_pexcel_category.post',
+            'uses' => 'Foostart\Pexcel\Controllers\Admin\PexcelCategoryAdminController@post'
         ]);
          /**
          * delete
          */
-        Route::get('admin/sample_category/delete', [
-            'as' => 'admin_sample_category.delete',
-            'uses' => 'Foostart\Sample\Controllers\Admin\SampleCategoryAdminController@delete'
+        Route::get('admin/pexcel_category/delete', [
+            'as' => 'admin_pexcel_category.delete',
+            'uses' => 'Foostart\Pexcel\Controllers\Admin\PexcelCategoryAdminController@delete'
         ]);
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////CATEGORIES///////////////////////////////
