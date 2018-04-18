@@ -5,9 +5,9 @@ use Illuminate\Session\TokenMismatchException;
 /**
  * FRONT
  */
-Route::get('pexcel', [
-    'as' => 'pexcel',
-    'uses' => 'Foostart\Pexcel\Controllers\Front\PexcelFrontController@index'
+Route::get('sample', [
+    'as' => 'sample',
+    'uses' => 'Foostart\Sample\Controllers\Front\SampleFrontController@index'
 ]);
 
 
@@ -16,96 +16,82 @@ Route::get('pexcel', [
  */
 Route::group(['middleware' => ['web']], function () {
 
-    Route::group(['middleware' => ['admin_logged', 'can_see', 'in_context'],
-                  'namespace' => 'Foostart\Pexcel\Controllers\Admin',
-        ], function () {
+    Route::group(['middleware' => ['admin_logged', 'can_see']], function () {
 
-        /*
-          |-----------------------------------------------------------------------
-          | Manage pexcel
-          |-----------------------------------------------------------------------
-          | 1. List of pexcels
-          | 2. Edit pexcel
-          | 3. Delete pexcel
-          | 4. Add new pexcel
-          | 5. Manage configurations
-          | 6. Manage languages
-          |
-        */
-
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////SAMPLES ROUTE///////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
         /**
          * list
          */
-        Route::get('admin/pexcels/list', [
-            'as' => 'pexcels.list',
-            'uses' => 'PexcelAdminController@index'
+        Route::get('admin/sample', [
+            'as' => 'admin_sample',
+            'uses' => 'Foostart\Sample\Controllers\Admin\SampleAdminController@index'
         ]);
 
         /**
          * edit-add
          */
-        Route::get('admin/pexcels/edit', [
-            'as' => 'pexcels.edit',
-            'uses' => 'PexcelAdminController@edit'
-        ]);
-
-        /**
-         * copy
-         */
-        Route::get('admin/pexcels/copy', [
-            'as' => 'pexcels.copy',
-            'uses' => 'PexcelAdminController@copy'
+        Route::get('admin/sample/edit', [
+            'as' => 'admin_sample.edit',
+            'uses' => 'Foostart\Sample\Controllers\Admin\SampleAdminController@edit'
         ]);
 
         /**
          * post
          */
-        Route::post('admin/pexcels/edit', [
-            'as' => 'pexcels.post',
-            'uses' => 'PexcelAdminController@post'
+        Route::post('admin/sample/edit', [
+            'as' => 'admin_sample.post',
+            'uses' => 'Foostart\Sample\Controllers\Admin\SampleAdminController@post'
         ]);
 
         /**
          * delete
          */
-        Route::get('admin/pexcels/delete', [
-            'as' => 'pexcels.delete',
-            'uses' => 'PexcelAdminController@delete'
+        Route::get('admin/sample/delete', [
+            'as' => 'admin_sample.delete',
+            'uses' => 'Foostart\Sample\Controllers\Admin\SampleAdminController@delete'
+        ]);
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////SAMPLES ROUTE///////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+
+
+
+
+        
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////CATEGORIES///////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+         Route::get('admin/sample_category', [
+            'as' => 'admin_sample_category',
+            'uses' => 'Foostart\Sample\Controllers\Admin\SampleCategoryAdminController@index'
         ]);
 
         /**
-         * trash
+         * edit-add
          */
-         Route::get('admin/pexcels/trash', [
-            'as' => 'pexcels.trash',
-            'uses' => 'PexcelAdminController@trash'
+        Route::get('admin/sample_category/edit', [
+            'as' => 'admin_sample_category.edit',
+            'uses' => 'Foostart\Sample\Controllers\Admin\SampleCategoryAdminController@edit'
         ]);
 
         /**
-         * configs
-        */
-        Route::get('admin/pexcels/config', [
-            'as' => 'pexcels.config',
-            'uses' => 'PexcelAdminController@config'
+         * post
+         */
+        Route::post('admin/sample_category/edit', [
+            'as' => 'admin_sample_category.post',
+            'uses' => 'Foostart\Sample\Controllers\Admin\SampleCategoryAdminController@post'
         ]);
-
-        Route::post('admin/pexcels/config', [
-            'as' => 'pexcels.config',
-            'uses' => 'PexcelAdminController@config'
+         /**
+         * delete
+         */
+        Route::get('admin/sample_category/delete', [
+            'as' => 'admin_sample_category.delete',
+            'uses' => 'Foostart\Sample\Controllers\Admin\SampleCategoryAdminController@delete'
         ]);
-
-        /**
-         * language
-        */
-        Route::get('admin/pexcels/lang', [
-            'as' => 'pexcels.lang',
-            'uses' => 'PexcelAdminController@lang'
-        ]);
-
-        Route::post('admin/pexcels/lang', [
-            'as' => 'pexcels.lang',
-            'uses' => 'PexcelAdminController@lang'
-        ]);
-
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////CATEGORIES///////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
     });
 });
