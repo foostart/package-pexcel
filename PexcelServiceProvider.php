@@ -4,10 +4,9 @@ namespace Foostart\Pexcel;
 
 use Illuminate\Support\ServiceProvider;
 use LaravelAcl\Authentication\Classes\Menu\SentryMenuFactory;
-
-use URL, Route;
+use URL,
+    Route;
 use Illuminate\Http\Request;
-
 
 class PexcelServiceProvider extends ServiceProvider {
 
@@ -17,30 +16,27 @@ class PexcelServiceProvider extends ServiceProvider {
      * @return void
      */
     public function boot(Request $request) {
-        /**
-         * Publish
-         */
-         $this->publishes([
-            __DIR__.'/config/pexcel_admin.php' => config_path('pexcel_admin.php'),
-        ],'config');
 
-        $this->loadViewsFrom(__DIR__ . '/views', 'pexcel');
+        //generate context key
+//        $this->generateContextKey();
 
+        // load view
+        $this->loadViewsFrom(__DIR__ . '/Views', 'package-pexcel');
 
-        /**
-         * Translations
-         */
-         $this->loadTranslationsFrom(__DIR__.'/lang', 'pexcel');
+        // include view composers
+        require __DIR__ . "/composers.php";
 
+        // publish config
+        $this->publishConfig();
 
-        /**
-         * Load view composer
-         */
-        $this->pexcelViewComposer($request);
+        // publish lang
+        $this->publishLang();
 
-         $this->publishes([
-                __DIR__.'/../database/migrations/' => database_path('migrations')
-            ], 'migrations');
+        // publish views
+        $this->publishViews();
+
+        // publish assets
+        $this->publishAssets();
 
     }
 
@@ -51,55 +47,46 @@ class PexcelServiceProvider extends ServiceProvider {
      */
     public function register() {
         include __DIR__ . '/routes.php';
-
-        /**
-         * Load controllers
-         */
-        $this->app->make('Foostart\Pexcel\Controllers\Admin\PexcelAdminController');
-
-         /**
-         * Load Views
-         */
-        $this->loadViewsFrom(__DIR__ . '/views', 'pexcel');
     }
 
     /**
-     *
+     * Public config to system
+     * @source: vendor/foostart/package-pexcel/config
+     * @destination: config/
      */
-    public function pexcelViewComposer(Request $request) {
+    protected function publishConfig() {
+        $this->publishes([
+            __DIR__ . '/config/package-pexcel.php' => config_path('package-pexcel.php'),
+                ], 'config');
+    }
 
-        view()->composer('pexcel::pexcel*', function ($view) {
-            global $request;
-            $pexcel_id = $request->get('id');
-            $is_action = empty($pexcel_id)?'page_add':'page_edit';
+    /**
+     * Public language to system
+     * @source: vendor/foostart/package-pexcel/lang
+     * @destination: resources/lang
+     */
+    protected function publishLang() {
+        $this->publishes([
+            __DIR__ . '/lang' => base_path('resources/lang'),
+        ]);
+    }
 
-            $view->with('sidebar_items', [
+    /**
+     * Public view to system
+     * @source: vendor/foostart/package-pexcel/Views
+     * @destination: resources/views/vendor/package-pexcel
+     */
+    protected function publishViews() {
 
-                /**
-                 * Pexcels
-                 */
-                //list
-                trans('pexcel::pexcel_admin.page_list') => [
-                    'url' => URL::route('admin_pexcel'),
-                    "icon" => '<i class="fa fa-users"></i>'
-                ],
-                //add
-                trans('pexcel::pexcel_admin.'.$is_action) => [
-                    'url' => URL::route('admin_pexcel.edit'),
-                    "icon" => '<i class="fa fa-users"></i>'
-                ],
+        $this->publishes([
+            __DIR__ . '/Views' => base_path('resources/views/vendor/package-pexcel'),
+        ]);
+    }
 
-                /**
-                 * Categories
-                 */
-                //list
-                trans('pexcel::pexcel_admin.page_category_list') => [
-                    'url' => URL::route('admin_pexcel_category'),
-                    "icon" => '<i class="fa fa-users"></i>'
-                ],
-            ]);
-            //
-        });
+    protected function publishAssets() {
+        $this->publishes([
+            __DIR__ . '/public' => public_path('packages/foostart/package-pexcel'),
+        ]);
     }
 
 }
