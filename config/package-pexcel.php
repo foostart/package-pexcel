@@ -3,20 +3,24 @@ return [
 
     //Number of worlds
     'length' => [
-        'pexcel_name' => [
+        'category_name' => [
+            'min' => 3,
+            'max' => 255,
+        ],
+        'category_overview' => [
             'min' => 10,
             'max' => 255,
         ],
-        'pexcel_overview' => [
-            'min' => 10,
-            'max' => 255,
-        ],
-        'pexcel_description' => [
-            'min' => 255,
+        'category_description' => [
+            'min' => 25,
             'max' => 0,//unlimit
         ],
     ],
-    'per_page' => 1,
+
+    'name_context_min_length' => 5,
+    'name_context_max_length' => 255,
+
+    'per_page' => 15,
 
     /*
     |-----------------------------------------------------------------------
@@ -27,20 +31,34 @@ return [
     |
     */
     'env' => 0,
-    'load_from' => 'package-pexcel::',
+    'load_from' => 'package-category::',
 
-    /*
-    |-----------------------------------------------------------------------
-    | LANGUAGES
-    |-----------------------------------------------------------------------
-    | vi
-    | en
-    |
-    */
-    'langs' => [
-        'en' => 'English',
-        'vi' => 'Vietnam'
-    ],
+     /*
+ +      |--------------------------------------------------------------------------
+ +      | ITEM STATUS
+ +      |--------------------------------------------------------------------------
+ +      | @public = 99
+ +      | @in_trash = 55 delete from list
+ +      | @draft = 11 auto save
+ +      | @unpublish = 33
+ +     */
+    'status' => [
+        'list' => [
+           99 => 'Publish',
+            33 => 'Unpublish',
+            55 => 'In trash',
+           11 => 'Draft',
+       ],
+       'color' => [
+            11 => '#ef4832',
+           33 => '#000000',
+           55 => '#a8aac2',
+           99 => '#5bc0de'
+        ]
+       ],
+
+
+
 
 
     /*

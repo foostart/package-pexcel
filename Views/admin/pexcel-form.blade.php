@@ -74,8 +74,17 @@
             'errors' => $errors,
             ])
             <!-- /LIST OF CATEGORIES -->
-        </div>
+           
 
+        </div>
+     <!--STATUS-->
+            @include('package-category::admin.partials.radio', [
+                 'name' => 'pexcel_status',
+                'label' => trans($plang_admin.'.labels.pexcel-status'),
+                 'value' => @$item->pexcel_status,
+                 'description' => trans($plang_admin.'.descriptions.pexcel-status'),
+                 'items' => $statuses
+             ])
         <!--MENU 2-->
         <div id="menu_2" class="tab-pane fade">
             <!--SAMPLE OVERVIEW-->

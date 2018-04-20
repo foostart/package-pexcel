@@ -1,4 +1,6 @@
-<?php namespace Foostart\Pexcel\Models;
+<?php
+
+namespace Foostart\Pexcel\Models;
 
 use Foostart\Category\Library\Models\FooModel;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +16,6 @@ class Pexcel extends FooModel {
         $this->setConfigs();
 
         parent::__construct($attributes);
-
     }
 
     public function setConfigs() {
@@ -33,7 +34,7 @@ class Pexcel extends FooModel {
             'pexcel_description',
             'pexcel_image',
             'pexcel_files',
-            'pexcel_status',    
+            'pexcel_status',
         ];
 
         //list of fields for inserting
@@ -74,6 +75,12 @@ class Pexcel extends FooModel {
                 'name' => 'files',
                 'type' => 'Json',
             ],
+            
+             'pexcel_status' => [
+                 'name' => 'pexcel_status',
+                 'type' => 'Int',
+            ],
+           
         ];
 
         //check valid fields for inserting
@@ -88,6 +95,7 @@ class Pexcel extends FooModel {
             'pexcel_image',
             'pexcel_files',
             'pexcel_status',
+            '',
         ];
 
         //check valid fields for ordering
@@ -110,7 +118,6 @@ class Pexcel extends FooModel {
 
         //item status
         $this->field_status = 'pexcel_status';
-
     }
 
     /**
@@ -149,7 +156,7 @@ class Pexcel extends FooModel {
         if (empty($key)) {
             $key = $this->primaryKey;
         }
-       //join to another tables
+        //join to another tables
         $elo = $this->joinTable();
 
         //search filters
@@ -172,7 +179,7 @@ class Pexcel extends FooModel {
      * @param ARRAY $params list of parameters
      * @return ELOQUENT OBJECT
      */
-    protected function joinTable(array $params = []){
+    protected function joinTable(array $params = []) {
         return $this;
     }
 
@@ -181,17 +188,13 @@ class Pexcel extends FooModel {
      * @param ARRAY $params list of parameters
      * @return ELOQUENT OBJECT
      */
-    protected function searchFilters(array $params = [], $elo, $by_status = TRUE){
+    protected function searchFilters(array $params = [], $elo, $by_status = TRUE) {
 
         //filter
-        if ($this->isValidFilters($params) && (!empty($params)))
-        {
-            foreach($params as $column => $value)
-            {
-                if($this->isValidValue($value))
-                {
-                    switch($column)
-                    {
+        if ($this->isValidFilters($params) && (!empty($params))) {
+            foreach ($params as $column => $value) {
+                if ($this->isValidValue($value)) {
+                    switch ($column) {
                         case 'pexcel_name':
                             if (!empty($value)) {
                                 $elo = $elo->where($this->table . '.pexcel_name', '=', $value);
@@ -199,15 +202,15 @@ class Pexcel extends FooModel {
                             break;
                         case 'status':
                             if (!empty($value)) {
-                                $elo = $elo->where($this->table . '.'.$this->field_status, '=', $value);
+                                $elo = $elo->where($this->table . '.' . $this->field_status, '=', $value);
                             }
                             break;
                         case 'keyword':
                             if (!empty($value)) {
                                 $elo = $elo->where(function($elo) use ($value) {
                                     $elo->where($this->table . '.pexcel_name', 'LIKE', "%{$value}%")
-                                    ->orWhere($this->table . '.pexcel_description','LIKE', "%{$value}%")
-                                    ->orWhere($this->table . '.pexcel_overview','LIKE', "%{$value}%");
+                                            ->orWhere($this->table . '.pexcel_description', 'LIKE', "%{$value}%")
+                                            ->orWhere($this->table . '.pexcel_overview', 'LIKE', "%{$value}%");
                                 });
                             }
                             break;
@@ -218,8 +221,7 @@ class Pexcel extends FooModel {
             }
         } elseif ($by_status) {
 
-            $elo = $elo->where($this->table . '.'.$this->field_status, '=', $this->status['publish']);
-
+            $elo = $elo->where($this->table . '.' . $this->field_status, '=', $this->status['publish']);
         }
 
         return $elo;
@@ -232,9 +234,8 @@ class Pexcel extends FooModel {
      */
     public function createSelect($elo) {
 
-        $elo = $elo->select($this->table . '.*',
-                            $this->table . '.pexcel_id as id'
-                );
+        $elo = $elo->select($this->table . '.*', $this->table . '.pexcel_id as id'
+        );
 
         return $elo;
     }
@@ -282,7 +283,6 @@ class Pexcel extends FooModel {
         }
     }
 
-
     /**
      *
      * @param ARRAY $params list of parameters
@@ -303,7 +303,6 @@ class Pexcel extends FooModel {
         return $item;
     }
 
-
     /**
      *
      * @param ARRAY $input list of parameters
@@ -322,10 +321,19 @@ class Pexcel extends FooModel {
                     return $item->delete();
                     break;
             }
-
         }
 
         return FALSE;
     }
 
+    /**
+     *
+     * Get list of statuses to push to select
+     * @return ARRAY list of statuses
+     */
+    
+     public function getPluckStatus() {
+            $pluck_status = config('package-pexcel.status.list');
+            return $pluck_status;
+     }
 }
