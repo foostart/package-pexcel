@@ -76,7 +76,7 @@ class Pexcel extends FooModel {
                 'type' => 'Json',
             ],
             
-             'pexcel_status' => [
+            'pexcel_status' => [
                  'name' => 'pexcel_status',
                  'type' => 'Int',
             ],
@@ -219,10 +219,7 @@ class Pexcel extends FooModel {
                     }
                 }
             }
-        } elseif ($by_status) {
-
-            $elo = $elo->where($this->table . '.' . $this->field_status, '=', $this->status['publish']);
-        }
+        } 
 
         return $elo;
     }
@@ -273,7 +270,7 @@ class Pexcel extends FooModel {
                 $pexcel->$key = $value;
             }
 
-            $pexcel->$field_status = $this->status['publish'];
+            //$pexcel->$field_status = $this->status['publish'];
 
             $pexcel->save();
 
@@ -292,7 +289,7 @@ class Pexcel extends FooModel {
 
         $dataFields = $this->getDataFields($params, $this->fields);
 
-        $dataFields[$this->field_status] = $this->status['publish'];
+        //$dataFields[$this->field_status] = $this->status['publish'];
 
 
         $item = self::create($dataFields);

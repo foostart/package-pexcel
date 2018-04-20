@@ -80,7 +80,7 @@
      <!--STATUS-->
             @include('package-category::admin.partials.radio', [
                  'name' => 'pexcel_status',
-                'label' => trans($plang_admin.'.labels.pexcel-status'),
+                 'label' => trans($plang_admin.'.labels.pexcel-status'),
                  'value' => @$item->pexcel_status,
                  'description' => trans($plang_admin.'.descriptions.pexcel-status'),
                  'items' => $statuses
