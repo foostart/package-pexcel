@@ -47,12 +47,19 @@ return [
     |
     */
     'columns' => [
-        'order' => '#',
         'name' => 'Pexcel name',
         'operations' => 'Operations',
         'updated_at' => 'Updated at',
         'filename' => 'File name',
-       'contact-status' => 'contact-status',
+       'contact-status' => 'Contact status',
+        'any'   => 'Any',
+        'order' => 'Order',
+        'id'    => 'ID',
+        'context-ref' => 'Ref',
+        'key' => 'Key',
+        'status' => 'Status',
+        '#' => '#',
+        'url' => 'Url',
     ],
 
 
@@ -90,6 +97,8 @@ return [
         'add' => 'Add',
         'save' => 'Save',
         'delete' => 'Delete',
+        'delete-in-trash' => 'In trash',
+        'delete-forever' => 'Forever',
     ],
 
 
@@ -137,6 +146,7 @@ return [
         'not-found' => 'Not found items',
         'config' => 'List of configurations',
         'lang' => 'List of languages',
+        'pexcel-status' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
     ],
 
 
@@ -174,7 +184,8 @@ return [
         'description' => 'Pexcel Description',
         'overview' => 'Pexcel Overview',
         'slug' => 'Slug',
-        'updated_at' => 'Updated at'
+        'updated_at' => 'Updated at',
+        'pexcel-status' => 'Status',
     ],
 
 
@@ -199,6 +210,7 @@ return [
         'title-search' => 'Search pexcel',
         'title-backup' => 'Backups',
         'config' => 'Configurations',
+        'pexcel-status' => 'Status',
     ],
 
 
@@ -287,5 +299,21 @@ return [
         'edit-error' => 'Edit item failed',
         'delete-ok' => 'Delete item successfully',
         'delete-error' => 'Delete item failed',
+    ],
+
+
+
+
+
+    /*
+    |-----------------------------------------------------------------------
+    | Hint
+    |-----------------------------------------------------------------------
+    | The list of hint
+    |
+    */
+    'hint'  => [
+        'delete-forever' => 'Delete forever',
+        'delete-in-trash' => 'Delete in trash',
     ],
 ];

@@ -1,11 +1,10 @@
 @if(!empty($items) && (!$items->isEmpty()) )
 <?php
 $withs = [
-    'order' => '5%',
+    'order' => '10%',
     'name' => '40%',
     'updated_at' => '40%',
     'operations' => '10%',
-    'delete' => '5%',
     'status' => '5%',
 ];
 
@@ -29,11 +28,14 @@ $counter = ($nav['current_page'] - 1) * $nav['per_page'] + 1;
             <!--ORDER-->
             <th style='width:{{ $withs['order'] }}'>
                 {{ trans($plang_admin.'.columns.order') }}
+                <span class="del-checkbox pull-right">
+                    <input type="checkbox" id="selecctall" />
+                    <label for="del-checkbox"></label>
+                </span>
             </th>
 
             <!-- NAME -->
             <?php $name = 'pexcel_name' ?>
-
             <th class="hidden-xs" style='width:{{ $withs['name'] }}'>{!! trans($plang_admin.'.columns.name') !!}
                 <a href='{!! $sorting["url"][$name] !!}' class='tb-id' data-order='asc'>
                     @if($sorting['items'][$name] == 'asc')
@@ -51,26 +53,8 @@ $counter = ($nav['current_page'] - 1) * $nav['per_page'] + 1;
                 {{ trans($plang_admin.'.columns.status') }}
             </th>
 
-            
-                <!--REF-->
-             <?php $name = 'pexcel_status' ?>
- 
-             <th class="hidden-xs" style='width:{{ $withs['name'] }}'>{!! trans($plang_admin.'.columns.pexcel-status') !!}
-                <a href='{!! $sorting["url"][$name] !!}' class='tb-id' data-order='asc'>
-                    @if($sorting['items'][$name] == 'asc')
-                        <i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>
-                    @elseif($sorting['items'][$name] == 'desc')
-                       <i class="fa fa-sort-alpha-desc" aria-hidden="true"></i>
-                   @else
-                       <i class="fa fa-sort-desc" aria-hidden="true"></i>
-                   @endif
-              </a>
-           </th>
-            <!-- NAME -->
+            <!-- UPDATED AT -->
             <?php $name = 'updated_at' ?>
-            
-            
-
             <th class="hidden-xs" style='width:{{ $withs['updated_at'] }}'>{!! trans($plang_admin.'.columns.updated_at') !!}
                 <a href='{!! $sorting["url"][$name] !!}' class='tb-id' data-order='asc'>
                     @if($sorting['items'][$name] == 'asc')
@@ -82,25 +66,23 @@ $counter = ($nav['current_page'] - 1) * $nav['per_page'] + 1;
                     @endif
                 </a>
             </th>
-            
-        
-     
+
             <!--OPERATIONS-->
             <th style='width:{{ $withs['operations'] }}'>
                 <span class='lb-delete-all'>
                     {{ trans($plang_admin.'.columns.operations') }}
                 </span>
 
-                {!! Form::submit(trans($plang_admin.'.buttons.delete'), array("class"=>"btn btn-danger pull-right delete btn-delete-all del-trash", 'name'=>'del-trash')) !!}
-                {!! Form::submit(trans($plang_admin.'.buttons.delete'), array("class"=>"btn btn-warning pull-right delete btn-delete-all del-forever", 'name'=>'del-forever')) !!}
-            </th>
-
-            <!--DELETE-->
-            <th style='width:{{ $withs['delete'] }}'>
-                <span class="del-checkbox pull-right">
-                    <input type="checkbox" id="selecctall" />
-                    <label for="del-checkbox"></label>
-                </span>
+                {!! Form::submit(trans($plang_admin.'.buttons.delete-in-trash'), array(
+                                                                            "class"=>"btn btn-danger pull-left delete btn-delete-all del-trash",
+                                                                            "title"=> trans($plang_admin.'.hint.delete-in-trash'),
+                                                                            'name'=>'del-trash'))
+                !!}
+                {!! Form::submit(trans($plang_admin.'.buttons.delete-forever'), array(
+                                                                            "class"=>"btn btn-warning pull-left delete btn-delete-all del-forever",
+                                                                            "title"=> trans($plang_admin.'.hint.delete-forever'),
+                                                                            'name'=>'del-forever'))
+                !!}
             </th>
 
         </tr>
@@ -111,16 +93,20 @@ $counter = ($nav['current_page'] - 1) * $nav['per_page'] + 1;
         @foreach($items as $item)
         <tr>
             <!--COUNTER-->
-            <td> <?php echo $counter;
-                $counter++
-                ?> </td>
+            <td>
+                <?php echo $counter;  $counter++; ?>
+                <span class='box-item pull-right'>
+                   <input type="checkbox" id="<?php echo $item->id ?>" name="ids[]" value="{!! $item->id !!}">
+                   <label for="box-item"></label>
+                </span>
+            </td>
 
             <!--NAME-->
             <td> {!! $item->pexcel_name !!} </td>
-            
+
              <!--STATUS-->
                  <td style="text-align: center;">
- 
+
                      <?php $status = config('package-pexcel.status'); ?>
                      @if($item->pexcel_status && (isset($status['list'][$item->pexcel_status])))
                          <i class="fa fa-circle" style="color:{!! $status['color'][$item->pexcel_status] !!}" title='{!! $status["list"][$item->pexcel_status] !!}'></i>
@@ -128,7 +114,7 @@ $counter = ($nav['current_page'] - 1) * $nav['per_page'] + 1;
                      <i class="fa fa-circle-o red" title='{!! trans($plang_admin.".labels.unknown") !!}'></i>
                      @endif
                  </td>
-            
+
 
             <!--UPDATED AT-->
             <td> {!! $item->updated_at !!} </td>
@@ -162,15 +148,6 @@ $counter = ($nav['current_page'] - 1) * $nav['per_page'] + 1;
                 </a>
 
             </td>
-
-            <!--DELETE-->
-            <td>
-                <span class='box-item pull-right'>
-                    <input type="checkbox" id="<?php echo $item->id ?>" name="ids[]" value="{!! $item->id !!}">
-                    <label for="box-item"></label>
-                </span>
-            </td>
-
         </tr>
         @endforeach
 
@@ -192,5 +169,5 @@ $counter = ($nav['current_page'] - 1) * $nav['per_page'] + 1;
 
 @section('footer_scripts')
 @parent
-{!! HTML::script('packages/foostart/package-pexcel/js/form-table.js')  !!}
+{!! HTML::script('packages/foostart/js/form-table.js')  !!}
 @stop

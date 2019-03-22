@@ -85,7 +85,7 @@ class PexcelServiceProvider extends ServiceProvider {
 
     protected function publishAssets() {
         $this->publishes([
-            __DIR__ . '/public' => public_path('packages/foostart/package-pexcel'),
+            __DIR__ . '/public' => public_path('packages/foostart'),
         ]);
     }
 

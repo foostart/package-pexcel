@@ -36,6 +36,10 @@ Route::group(['middleware' => ['web']], function () {
         /**
          * list
          */
+         Route::get('admin/pexcels', [
+            'as' => 'pexcels.list',
+            'uses' => 'PexcelAdminController@index'
+        ]);
         Route::get('admin/pexcels/list', [
             'as' => 'pexcels.list',
             'uses' => 'PexcelAdminController@index'

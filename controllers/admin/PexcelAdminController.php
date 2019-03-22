@@ -34,7 +34,7 @@ class PexcelAdminController extends FooController {
         // models
         $this->obj_item = new Pexcel(array('perPage' => 10));
         $this->obj_category = new Category();
-        //statuses    
+        //statuses
         $this->statuses = config('package-pexcel.status.list');
         // validators
         $this->obj_validator = new PexcelValidator();
@@ -158,6 +158,7 @@ class PexcelAdminController extends FooController {
                 if (!empty($item)) {
 
                     $params['id'] = $id;
+
                     $item = $this->obj_item->updateItem($params);
 
                     // message
@@ -245,7 +246,12 @@ class PexcelAdminController extends FooController {
         $config_path = realpath(base_path('config/package-pexcel.php'));
         $package_path = realpath(base_path('vendor/foostart/package-pexcel'));
 
-        $config_bakup = realpath($package_path . '/storage/backup/config');
+        $config_bakup = $package_path.'/storage/backup/config';
+        if (!file_exists($config_bakup)) {
+            mkdir($config_bakup, 0755    , true);
+        }
+        $config_bakup = realpath($config_bakup);
+
 
         if ($version = $request->get('v')) {
             //load backup config
@@ -258,7 +264,7 @@ class PexcelAdminController extends FooController {
         if ($request->isMethod('post') && $is_valid_request) {
 
             //create backup of current config
-            file_put_contents($config_bakup . '/package-pexcel-' . date('YmdHis', time()) . '.php', $content);
+            file_put_contents($config_bakup.'/package-pexcel-'.date('YmdHis',time()).'.php', $content);
 
             //update new config
             $content = $request->get('content');
@@ -266,7 +272,7 @@ class PexcelAdminController extends FooController {
             file_put_contents($config_path, $content);
         }
 
-        $backups = array_reverse(glob($config_bakup . '/*'));
+        $backups = array_reverse(glob($config_bakup.'/*'));
 
         $this->data_view = array_merge($this->data_view, array(
             'request' => $request,
@@ -287,28 +293,34 @@ class PexcelAdminController extends FooController {
         // display view
         $langs = config('package-pexcel.langs');
         $lang_paths = [];
+        $package_path = realpath(base_path('vendor/foostart/package-pexcel'));
 
         if (!empty($langs) && is_array($langs)) {
             foreach ($langs as $key => $value) {
-                $lang_paths[$key] = realpath(base_path('resources/lang/' . $key . '/pexcel-admin.php'));
+                $lang_paths[$key] = realpath(base_path('resources/lang/'.$key.'/pexcel-admin.php'));
+
+                $key_backup = $package_path.'/storage/backup/lang/'.$key;
+
+                if (!file_exists($key_backup)) {
+                    mkdir($key_backup, 0755    , true);
+                }
             }
         }
 
-        $package_path = realpath(base_path('vendor/foostart/package-pexcel'));
-
-        $lang_bakup = realpath($package_path . '/storage/backup/lang');
-        $lang = $request->get('lang') ? $request->get('lang') : 'en';
+        $lang_bakup = realpath($package_path.'/storage/backup/lang');
+        $lang = $request->get('lang')?$request->get('lang'):'en';
         $lang_contents = [];
 
         if ($version = $request->get('v')) {
             //load backup lang
             $group_backups = base64_decode($version);
-            $group_backups = empty($group_backups) ? [] : explode(';', $group_backups);
+            $group_backups = empty($group_backups)?[]: explode(';', $group_backups);
 
             foreach ($group_backups as $group_backup) {
                 $_backup = explode('=', $group_backup);
                 $lang_contents[$_backup[0]] = file_get_contents($_backup[1]);
             }
+
         } else {
             //load current lang
             foreach ($lang_paths as $key => $lang_path) {
@@ -322,8 +334,8 @@ class PexcelAdminController extends FooController {
             foreach ($lang_paths as $key => $value) {
                 $content = file_get_contents($value);
 
-                //format file name pexcel-admin-YmdHis.php
-                file_put_contents($lang_bakup . '/' . $key . '/pexcel-admin-' . date('YmdHis', time()) . '.php', $content);
+                //format file name category-admin-YmdHis.php
+                file_put_contents($lang_bakup.'/'.$key.'/pexcel-admin-'.date('YmdHis',time()).'.php', $content);
             }
 
 
@@ -332,18 +344,19 @@ class PexcelAdminController extends FooController {
                 $content = $request->get($key);
                 file_put_contents($lang_paths[$key], $content);
             }
+
         }
 
         //get list of backup langs
         $backups = [];
         foreach ($langs as $key => $value) {
-            $backups[$key] = array_reverse(glob($lang_bakup . '/' . $key . '/*'));
+            $backups[$key] = array_reverse(glob($lang_bakup.'/'.$key.'/*'));
         }
 
         $this->data_view = array_merge($this->data_view, array(
             'request' => $request,
             'backups' => $backups,
-            'langs' => $langs,
+            'langs'   => $langs,
             'lang_contents' => $lang_contents,
             'lang' => $lang,
         ));
