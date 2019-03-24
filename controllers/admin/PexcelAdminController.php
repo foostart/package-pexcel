@@ -21,6 +21,7 @@ use Foostart\Category\Library\Controllers\FooController;
 use Foostart\Pexcel\Models\Pexcel;
 use Foostart\Category\Models\Category;
 use Foostart\Pexcel\Validators\PexcelValidator;
+use Foostart\Pexcel\Helper\PexcelParser;
 
 class PexcelAdminController extends FooController {
 
@@ -57,6 +58,7 @@ class PexcelAdminController extends FooController {
                 'edit' => $this->package_name . '::admin.' . $this->package_base_name . '-edit',
                 'config' => $this->package_name . '::admin.' . $this->package_base_name . '-config',
                 'lang' => $this->package_name . '::admin.' . $this->package_base_name . '-lang',
+                'view' => $this->package_name . '::admin.' . $this->package_base_name . '-view',
             ]
         ];
 
@@ -402,6 +404,65 @@ class PexcelAdminController extends FooController {
         ));
 
         return view($this->page_views['admin']['edit'], $this->data_view);
+    }
+
+
+
+
+    /**
+     * View data file form excel
+     * @param Request $request
+     */
+    public function view(Request $request) {
+
+        $obj_parser = new PexcelParser();
+
+        $item = NULL;
+        $categories = NULL;
+
+        $params = $request->all();
+        $params['id'] = $request->get('id', NULL);
+
+        $context = $this->obj_item->getContext($this->category_ref_name);
+
+        if (!empty($params['id'])) {
+
+            $item = $this->obj_item->selectItem($params, FALSE);
+
+            if (empty($item)) {
+                return Redirect::route($this->root_router . '.list')
+                                ->withMessage(trans($this->plang_admin . '.actions.edit-error'));
+            }
+        }
+
+        //get categories by context
+        $context = $this->obj_item->getContext($this->category_ref_name);
+        if ($context) {
+            $params['context_id'] = $context->context_id;
+            $categories = $this->obj_category->pluckSelect($params);
+        }
+
+        //get data from file excel
+        $items = $obj_parser->read_data($item);
+
+        // display view
+        $this->data_view = array_merge($this->data_view, array(
+            'items' => $items,
+            'categories' => $categories,
+            'request' => $request,
+            'context' => $context,
+            'statuses' => $this->statuses,
+        ));
+        return view($this->page_views['admin']['view'], $this->data_view);
+    }
+
+    public function download(Request $request){
+
+        $obj_parser = new PexcelParser();
+        $obj_parser->export_items();
+        var_dump(111);
+        die();
+
     }
 
 }

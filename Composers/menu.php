@@ -22,6 +22,8 @@ View::composer([
     'package-pexcel::admin.pexcel-search',
     'package-pexcel::admin.pexcel-config',
     'package-pexcel::admin.pexcel-lang',
+    'package-pexcel::admin.pexcel-view',
+    'package-pexcel::admin.pexcel-view-item',
         ], function ($view) {
 
     /**
