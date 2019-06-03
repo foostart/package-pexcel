@@ -46,6 +46,30 @@ Route::group(['middleware' => ['web']], function () {
         ]);
 
         /**
+         * view
+         */
+        Route::get('admin/pexcels/view', [
+            'as' => 'pexcels.view',
+            'uses' => 'PexcelAdminController@view'
+        ]);
+
+        /**
+         * download
+         */
+        Route::get('admin/pexcels/download', [
+            'as' => 'pexcels.download',
+            'uses' => 'PexcelAdminController@download'
+        ]);
+
+        /**
+         * save
+         */
+        Route::post('admin/pexcels/save', [
+            'as' => 'pexcels.save',
+            'uses' => 'PexcelAdminController@save'
+        ]);
+
+        /**
          * edit-add
          */
         Route::get('admin/pexcels/edit', [
