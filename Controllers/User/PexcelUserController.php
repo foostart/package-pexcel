@@ -1,6 +1,4 @@
-<?php
-
-namespace Foostart\Pexcel\Controllers\Admin;
+<?php namespace Foostart\Pexcel\Controllers\User;
 
 use Illuminate\Http\Request;
 use Foostart\Pexcel\Controllers\Admin\PexcelController;

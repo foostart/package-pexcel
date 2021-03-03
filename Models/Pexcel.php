@@ -24,39 +24,21 @@ class Pexcel extends FooModel {
         $this->table = 'pexcels';
 
         //list of field in table
-        $this->fillable = [
-            'pexcel_name',
-            'category_id',
-            'user_id',
-            'user_full_name',
-            'user_email',
+        $this->fillable = array_merge($this->fillable, [
+            'pexcel_name',            
             'pexcel_overview',
             'pexcel_description',
             'pexcel_image',
             'pexcel_files',
-            'pexcel_status',
-        ];
+            //Relation
+            'category_id',
+            'user_id',
+        ]);
 
         //list of fields for inserting
-        $this->fields = [
+        $this->fields = array_merge($this->fields, [
             'pexcel_name' => [
                 'name' => 'pexcel_name',
-                'type' => 'Text',
-            ],
-            'category_id' => [
-                'name' => 'category_id',
-                'type' => 'Int',
-            ],
-            'user_id' => [
-                'name' => 'user_id',
-                'type' => 'Int',
-            ],
-            'user_full_name' => [
-                'name' => 'user_full_name',
-                'type' => 'Text',
-            ],
-            'user_email' => [
-                'name' => 'email',
                 'type' => 'Text',
             ],
             'pexcel_overview' => [
@@ -75,28 +57,29 @@ class Pexcel extends FooModel {
                 'name' => 'files',
                 'type' => 'Json',
             ],
-            
-            'pexcel_status' => [
-                 'name' => 'pexcel_status',
-                 'type' => 'Int',
+            //Relation
+            'category_id' => [
+                'name' => 'category_id',
+                'type' => 'Int',
             ],
+            'user_id' => [
+                'name' => 'user_id',
+                'type' => 'Int',
+            ], 
            
-        ];
+        ]);
 
         //check valid fields for inserting
-        $this->valid_insert_fields = [
+        $this->valid_insert_fields = array_merge($this->valid_insert_fields, [
             'pexcel_name',
-            'user_id',
-            'category_id',
-            'user_full_name',
-            'updated_at',
             'pexcel_overview',
             'pexcel_description',
             'pexcel_image',
             'pexcel_files',
-            'pexcel_status',
-            '',
-        ];
+            //Relation
+            'user_id',
+            'category_id',
+        ]);
 
         //check valid fields for ordering
         $this->valid_ordering_fields = [
@@ -113,11 +96,6 @@ class Pexcel extends FooModel {
         //primary key
         $this->primaryKey = 'pexcel_id';
 
-        //the number of items on page
-        $this->perPage = 10;
-
-        //item status
-        $this->field_status = 'pexcel_status';
     }
 
     /**
