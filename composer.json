@@ -14,7 +14,7 @@
     ],
     "license": "MIT",
     "require": {
-        "maatwebsite/excel": '*'
+        "maatwebsite/excel": "*"
     },
     "autoload": {
         "psr-4": {
