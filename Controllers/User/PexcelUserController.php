@@ -17,7 +17,7 @@ use Foostart\Pexcel\Helper\Parse;
  */
 use Foostart\Pexcel\Validators\PexcelAdminValidator;
 
-class PexcelAdminController extends PexcelController {
+class PexcelUserController extends PexcelController {
 
     private $obj_pexcel = NULL;
     private $obj_pexcel_categories = NULL;
