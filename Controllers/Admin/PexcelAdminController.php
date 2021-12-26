@@ -22,6 +22,7 @@ use Foostart\Pexcel\Models\Pexcel;
 use Foostart\Category\Models\Category;
 use Foostart\Pexcel\Validators\PexcelValidator;
 use Foostart\Pexcel\Helper\PexcelParser;
+use Foostart\Pexcel\Helper\UserPexcelParser;
 
 class PexcelAdminController extends FooController {
 
@@ -33,10 +34,9 @@ class PexcelAdminController extends FooController {
 
         parent::__construct();
         // models
-        $this->obj_item = new Pexcel(array('perPage' => 10));
+        $this->obj_item = new Pexcel(array('perPage' => 30));
         $this->obj_category = new Category();
-        //statuses
-        $this->statuses = config('package-pexcel.status.list');
+
         // validators
         $this->obj_validator = new PexcelValidator();
 
@@ -62,12 +62,9 @@ class PexcelAdminController extends FooController {
             ]
         ];
 
-        $this->data_view['status'] = $this->obj_item->getPluckStatus();
-
-
-        $this->statuses = config('package-pexcel.status.list');
         // //set category
         $this->category_ref_name = 'admin/pexcels';
+        $this->data_view['status'] = $this->obj_item->getPluckStatus();
     }
 
     /**
@@ -86,7 +83,7 @@ class PexcelAdminController extends FooController {
             'items' => $items,
             'request' => $request,
             'params' => $params,
-            'statuses' => $this->statuses,
+            'config_status' => $this->obj_item->config_status
         ));
 
         return view($this->page_views['admin']['items'], $this->data_view);
@@ -145,7 +142,7 @@ class PexcelAdminController extends FooController {
 
         $item = NULL;
 
-        $params = array_merge($request->all(), $this->getUser());
+        $params = array_merge($this->getUser(), $request->all());
 
         $is_valid_request = $this->isValidRequest($request);
 
@@ -406,9 +403,6 @@ class PexcelAdminController extends FooController {
         return view($this->page_views['admin']['edit'], $this->data_view);
     }
 
-
-
-
     /**
      * View data file form excel
      * @param Request $request
@@ -456,13 +450,89 @@ class PexcelAdminController extends FooController {
         return view($this->page_views['admin']['view'], $this->data_view);
     }
 
-    public function download(Request $request){
+    /**
+     * View data file form excel
+     * @param Request $request
+     */
+    public function raw(Request $request) {
 
-        $obj_parser = new PexcelParser();
-        $obj_parser->export_items();
-        var_dump(111);
-        die();
+        $item = NULL;
+        $categories = NULL;
 
+        $params = $request->all();
+        $params['id'] = $request->get('id', NULL);
+
+        if (!empty($params['id'])) {
+
+            $item = $this->obj_item->selectItem($params, FALSE);
+
+            if (empty($item)) {
+                return Redirect::route($this->root_router . '.list')
+                    ->withMessage(trans($this->plang_admin . '.actions.edit-error'));
+            }
+        }
+
+        //get categories by context
+        $context = $this->obj_item->getContext($this->category_ref_name);
+        if ($context) {
+            $params['context_id'] = $context->context_id;
+            $categories = $this->obj_category->pluckSelect($params);
+        }
+
+        //get data from file excel
+        $category = $this->obj_category->getCategoryById($item->category_id);
+
+        if ($category->category_name == 'User') {
+            $obj_parser = new UserPexcelParser();
+            $items = $obj_parser->readData($item, $category->category_name);
+        }
+
+        // display view
+        $this->data_view = array_merge($this->data_view, array(
+            'items' => $items,
+            'categories' => $categories,
+            'request' => $request,
+            'context' => $context,
+            'statuses' => $this->statuses,
+        ));
+        return view($this->page_views['admin']['view'], $this->data_view);
+    }
+
+    /**
+     * Delete existing item
+     * @return view list of items
+     * @date 27/12/2017
+     */
+    public function restore(Request $request) {
+
+        $item = NULL;
+        $flag = TRUE;
+        $params = array_merge($this->getUser(), $request->all());
+        $id = (int)$request->get('id');
+        $ids = $request->get('ids');
+
+        $is_valid_request = $this->isValidRequest($request);
+
+        if ($is_valid_request && (!empty($id) || !empty($ids))) {
+
+            $ids = !empty($id)?[$id]:$ids;
+
+            foreach ($ids as $id) {
+
+                $params['id'] = $id;
+
+                if (!$this->obj_item->restoreItem($params)) {
+                    $flag = FALSE;
+                }
+            }
+            if ($flag) {
+                return Redirect::route($this->root_router.'.pexcel.list')
+                    ->withMessage(trans($this->plang_admin.'.actions.restore-ok'));
+            }
+        }
+
+        return Redirect::route($this->root_router.'.pexcel.list')
+            ->withMessage(trans($this->plang_admin.'.actions.restore-error'));
     }
 
 }

@@ -6,18 +6,20 @@
 
     <!--BUTTONS-->
     <div class='btn-form'>
-        <!-- DELETE BUTTON -->
-        @if($item)
+        @if(isset($item) && $item->deleted_at)
+            <a href="{!! URL::route('pexcel.restore',['id' => $item->id, '_token' => csrf_token()]) !!}"
+               class="btn btn-success pull-right margin-left-5 restore">
+                {!! trans($plang_admin.'.buttons.restore') !!}
+            </a>
+        @elseif (isset($item))
             <a href="{!! URL::route('pexcel.delete',['id' => @$item->id, '_token' => csrf_token()]) !!}"
-            class="btn btn-danger pull-right margin-left-5 delete">
+               class="btn btn-warning pull-right margin-left-5 delete">
                 {!! trans($plang_admin.'.buttons.delete') !!}
             </a>
-        @endif
-        <!-- DELETE BUTTON -->
-
-        <!-- SAVE BUTTON -->
-        {!! Form::submit(trans($plang_admin.'.buttons.save'), array("class"=>"btn btn-info pull-right ")) !!}
-        <!-- /SAVE BUTTON -->
+    @endif
+    <!-- SAVE BUTTON -->
+    {!! Form::submit(trans($plang_admin.'.buttons.save'), array("class"=>"btn btn-info pull-right ")) !!}
+    <!-- /SAVE BUTTON -->
     </div>
     <!--/BUTTONS-->
 
@@ -37,12 +39,6 @@
             </a>
         </li>
 
-        <!--MENU 3-->
-        <li>
-            <a data-toggle="tab" href="#menu_3">
-                {!! trans($plang_admin.'.tabs.menu_3') !!}
-            </a>
-        </li>
     </ul>
     <!--/TAB MENU-->
 
@@ -63,7 +59,16 @@
             <!--/PEXCEL NAME-->
 
             <div class="row">
-                <div class='col-md-6'>
+                <div class="col-md-4">
+                    @include('package-category::admin.partials.input_text', [
+                        'name' => 'range_data',
+                        'label' => trans($plang_admin.'.labels.range_data'),
+                        'value' => @$item->pexcel_range_data,
+                        'description' => trans($plang_admin.'.descriptions.range_data'),
+                        'errors' => $errors,
+                    ])
+                </div>
+                <div class='col-md-4'>
                     <!-- LIST OF CATEGORIES -->
                     @include('package-category::admin.partials.select_single', [
                         'name' => 'category_id',
@@ -78,23 +83,23 @@
                     <!-- /LIST OF CATEGORIES -->
                 </div>
 
-                <div class='col-md-6'>
+                <div class='col-md-4'>
                     <!--STATUS-->
-                    @include('package-category::admin.partials.radio', [
-                        'name' => 'pexcel_status',
+                    @include('package-category::admin.partials.select_single', [
+                        'name' => 'status',
                         'label' => trans($plang_admin.'.labels.pexcel-status'),
-                        'value' => @$item->pexcel_status,
+                        'value' => @$item->status,
                         'description' => trans($plang_admin.'.descriptions.pexcel-status'),
-                        'items' => $statuses,
+                        'items' => $status,
                     ])
                     <!--/STATUS-->
                 </div>
             </div>
-             <!--PEXCEL FILES-->
+            <!--PEXCEL FILES-->
             @include('package-category::admin.partials.input_files', [
                 'name' => 'files',
                 'label' => trans($plang_admin.'.labels.files'),
-                'value' => @$item->pexcel_files,
+                'value' => @$item->pexcel_file_path,
                 'description' => trans($plang_admin.'.descriptions.files'),
                 'errors' => $errors,
             ])
@@ -103,18 +108,6 @@
 
         <!--MENU 2-->
         <div id="menu_2" class="tab-pane fade">
-            <div class="row">
-            <!--PEXCEL OVERVIEW-->
-            @include('package-category::admin.partials.textarea', [
-                'name' => 'pexcel_overview',
-                'label' => trans($plang_admin.'.labels.overview'),
-                'value' => @$item->pexcel_overview,
-                'description' => trans($plang_admin.'.descriptions.overview'),
-                'tinymce' => false,
-                'errors' => $errors,
-            ])
-            <!--/PEXCEL OVERVIEW-->
-
             <!--PEXCEL DESCRIPTION-->
             @include('package-category::admin.partials.textarea', [
                 'name' => 'pexcel_description',
@@ -126,23 +119,6 @@
                 'errors' => $errors,
             ])
             <!--/PEXCEL DESCRIPTION-->
-            </div>
-        </div>
-
-        <!--MENU 3-->
-        <div id="menu_3" class="tab-pane fade">
-            <div class="row">
-            <!--PEXCEL IMAGE-->
-            @include('package-category::admin.partials.input_image', [
-                'name' => 'pexcel_image',
-                'label' => trans($plang_admin.'.labels.image'),
-                'value' => @$item->pexcel_image,
-                'description' => trans($plang_admin.'.descriptions.image'),
-                'errors' => $errors,
-                'lfm_config' => false,
-            ])
-            <!--/PEXCEL IMAGE-->
-            </div>
         </div>
 
     </div>
