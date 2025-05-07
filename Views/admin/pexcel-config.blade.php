@@ -57,7 +57,7 @@
 
                         {!! html()->label(trans($plang_admin.'.labels.config'))->for('content') !!}
                         {!! html()->textarea('content', $content)->class('form-control textarea-margin')->attribute('size', '30x50') !!}
-                        {!! html()->closeModelForm() !!}
+                        {!! html()->form()->close() !!}
 
                     </div>
                     <!--/BODY-->

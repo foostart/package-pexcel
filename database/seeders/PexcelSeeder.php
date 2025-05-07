@@ -47,7 +47,7 @@ class PexcelSeeder extends FoostartSeeder
      * Create sample data for testing
      */
     private function createSampleData() {
-        $isCreateSampleData =  env('DB_SAMPLE_TEST');
+        $isCreateSampleData =  env('DB_SAMPLE_TEST', FoostartConstants::IS_CREATE_SAMPLE_DATA);
         if ($isCreateSampleData == FoostartConstants::IS_CREATE_SAMPLE_DATA) {
 
             /**
