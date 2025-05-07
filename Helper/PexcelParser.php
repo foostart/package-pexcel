@@ -2,9 +2,18 @@
 
 namespace Foostart\Pexcel\Helper;
 
-class PexcelParser
-{
+use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\Exportable;
+use Foostart\Pexcel\Helper\UserPexcelParser;
 
+class PexcelParser implements  FromCollection
+{
+    use Exportable;
+
+    public function collection()
+    {
+
+    }
     public function isValidFile($file_path)
     {
 
@@ -17,11 +26,17 @@ class PexcelParser
      * @param type $pexcel
      * @return type
      */
-    public function read_data($pexcel)
+    public function read_data($pexcel, $type)
     {
-        $pexcel_files = json_decode($pexcel->pexcel_files);
+
+        $pexcel_files = json_decode($pexcel->pexcel_file_path);
 
         $pexcel_file_path = realpath(base_path('public/' . $pexcel_files[0]));
+
+        if ($type == 'user') {
+            $obj_user = new UserPexcelParser();
+            $obj_user->read_data();
+        }
 
         $data = array();
 
@@ -35,9 +50,9 @@ class PexcelParser
         }, 'UTF-8')->get();
         $results = $data->toArray();
 
-        $students = $this->parseExcel($results);
+        $raw_data = $this->parseExcel($results);
 
-        return $students;
+        return $raw_data;
     }
     private function parseExcel($filedata) {
         $data = array();
@@ -111,7 +126,7 @@ class PexcelParser
 
     public function export_items($items = []) {
 
-        $temp = realpath(base_path('public/files/templates/template.xlsx'));
+        $temp = realpath(base_path('/files/1/1-pexcels/thong-ke-viec-lam.xls'));
 
         $columns =  ['A' => 'A', 'B' => 'B', 'C' => 'C' , 'D' => 'D', 'E' => 'E', 'F' => 'F'];
 
@@ -160,4 +175,7 @@ class PexcelParser
 
         })->download('xlsx');
     }
+
+
+
 }
