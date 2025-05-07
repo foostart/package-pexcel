@@ -73,16 +73,16 @@ $counter = ($nav['current_page'] - 1) * $nav['per_page'] + 1;
                     {{ trans($plang_admin.'.columns.operations') }}
                 </span>
 
-                {!! Form::submit(trans($plang_admin.'.buttons.delete-in-trash'), array(
-                                                                            "class"=>"btn btn-danger pull-left delete btn-delete-all del-trash",
-                                                                            "title"=> trans($plang_admin.'.hint.delete-in-trash'),
-                                                                            'name'=>'del-trash'))
-                !!}
-                {!! Form::submit(trans($plang_admin.'.buttons.delete-forever'), array(
-                                                                            "class"=>"btn btn-warning pull-left delete btn-delete-all del-forever",
-                                                                            "title"=> trans($plang_admin.'.hint.delete-forever'),
-                                                                            'name'=>'del-forever'))
-                !!}
+                {!! html()->submit(trans($plang_admin.'.buttons.delete-in-trash'))
+                    ->name('del-trash')
+                    ->class('btn btn-danger pull-left delete btn-delete-all del-trash')
+                    ->attribute('title', trans($plang_admin.'.hint.delete-in-trash')) !!}
+
+                {!! html()->submit(trans($plang_admin.'.buttons.delete-forever'))
+                    ->name('del-forever')
+                    ->class('btn btn-warning pull-left delete btn-delete-all del-forever')
+                    ->attribute('title', trans($plang_admin.'.hint.delete-forever')) !!}
+
             </th>
 
         </tr>
@@ -169,5 +169,5 @@ $counter = ($nav['current_page'] - 1) * $nav['per_page'] + 1;
 
 @section('footer_scripts')
 @parent
-{!! HTML::script('packages/foostart/js/form-table.js')  !!}
+{!! html()->script('packages/foostart/js/form-table.js') !!}
 @stop

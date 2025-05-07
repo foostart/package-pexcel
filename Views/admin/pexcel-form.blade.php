@@ -2,7 +2,11 @@
 | List of elements in pexcel form
 |------------------------------------------------------------------------------->
 
-{!! Form::open(['route'=>['pexcel.post', 'id' => @$item->id],  'files'=>true, 'method' => 'post'])  !!}
+{!! html()->form()
+    ->route('pexcel.post', ['id' => @$item->id])
+    ->attribute('enctype', 'multipart/form-data')
+    ->method('POST') !!}
+
 
     <!--BUTTONS-->
     <div class='btn-form'>
@@ -16,7 +20,7 @@
         <!-- DELETE BUTTON -->
 
         <!-- SAVE BUTTON -->
-        {!! Form::submit(trans($plang_admin.'.buttons.save'), array("class"=>"btn btn-info pull-right ")) !!}
+        {!! html()->submit(trans($plang_admin.'.buttons.save'))->class('btn btn-info pull-right') !!}
         <!-- /SAVE BUTTON -->
     </div>
     <!--/BUTTONS-->
@@ -150,12 +154,12 @@
 
     <!--HIDDEN FIELDS-->
     <div class='hidden-field'>
-        {!! Form::hidden('id',@$item->id) !!}
-        {!! Form::hidden('context',$request->get('context',null)) !!}
+        {!! html()->hidden('id', @$item->id) !!}
+        {!! html()->hidden('context', $request->get('context', null)) !!}
     </div>
     <!--/HIDDEN FIELDS-->
 
-{!! Form::close() !!}
+{!! html()->form()->close() !!}
 <!------------------------------------------------------------------------------
 | End list of elements in pexcel form
 |------------------------------------------------------------------------------>

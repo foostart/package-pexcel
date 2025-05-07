@@ -69,5 +69,5 @@ $counter = 1;
 
 @section('footer_scripts')
 @parent
-{!! HTML::script('packages/foostart/js/form-table.js')  !!}
+{!! html()->script('packages/foostart/js/form-table.js') !!}
 @stop

@@ -6,14 +6,14 @@
     </div>
     <div class="panel-body">
 
-        {!! Form::open(['route' => 'pexcel.list','method' => 'get']) !!}
+        {!! html()->form('GET', route('pexcel.list'))->open() !!}
 
-            <!--BUTTONS-->
+        <!--BUTTONS-->
             <div class="form-group">
                 <a href="{!! URL::route('pexcel.list', ['context' => @$params['context']]) !!}" class="btn btn-default search-reset">
                     {!! trans($plang_admin.'.buttons.reset') !!}
                 </a>
-                {!! Form::submit(trans($plang_admin.'.buttons.search').'', ["class" => "btn btn-info", 'id' => 'search-submit']) !!}
+                {!! html()->submit(trans($plang_admin.'.buttons.search'))->class('btn btn-info')->id('search-submit') !!}
             </div>
 
             <!-- KEYWORD -->
@@ -28,10 +28,10 @@
             @include('package-category::admin.partials.sorting')
 
             <div class='hidden-field'>
-                {!! Form::hidden('context',@$request->get('context',null)) !!}
+                {!! html()->hidden('context', $request->get('context', null)) !!}
                 {!! csrf_field() !!}
             </div>
 
-        {!! Form::close() !!}
+        {!! html()->form()->close() !!}
     </div>
 </div>
