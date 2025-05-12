@@ -46,13 +46,19 @@
 
                     <!--BODY-->
                     <div class="panel-body">
-                        {!! html()->form('GET', route('pexcel.delete', ['id' => @$item->id]))->open() !!}
+                        <!-- FORM OPEN -->
+                        @include('package-category::admin.partials.form_open', [
+                            'method' => 'GET',
+                            'action' => route('pexcel.delete', ['id' => @$item->id])
+                        ])
+
 
                         @include('package-pexcel::admin.pexcel-view-item')
 
                             {!! csrf_field(); !!}
 
-                        {!! html()->form()->close() !!}
+                        <!-- FORM CLOSE -->
+                        @include('package-category::admin.partials.form_close')
                     </div>
                     <!--/BODY-->
 

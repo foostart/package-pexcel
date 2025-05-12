@@ -69,5 +69,5 @@ $counter = 1;
 
 @section('footer_scripts')
 @parent
-{!! html()->script('packages/foostart/js/form-table.js') !!}
+<script src="{{ asset('packages/foostart/js/form-table.js') }}"></script>
 @stop

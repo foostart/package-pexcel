@@ -69,7 +69,7 @@ Route::group(['middleware' => ['web']], function () {
          * edit-add
          */
         Route::get('admin/pexcel/edit', [
-            'as' => 'pexcel.edit',
+            'as' => 'pexcel.editGet',
             'uses' => 'PexcelAdminController@edit'
         ]);
 

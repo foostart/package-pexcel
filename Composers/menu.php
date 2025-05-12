@@ -43,7 +43,7 @@ View::composer([
      */
     $sidebar_items = [
         trans('pexcel-admin.sidebar.add') => [
-            'url' => URL::route('pexcel.edit', []),
+            'url' => URL::route('pexcel.editGet', []),
             'icon' => '<i class="fa fa-pencil-square-o" aria-hidden="true"></i>'
         ],
         trans('pexcel-admin.sidebar.list') => [

@@ -2,10 +2,13 @@
 | List of elements in pexcel form
 |------------------------------------------------------------------------------->
 
-{!! html()->form()
-    ->route('pexcel.post', ['id' => @$item->id])
-    ->attribute('enctype', 'multipart/form-data')
-    ->method('POST') !!}
+<!-- FORM OPEN -->
+@include('package-category::admin.partials.form_open', [
+    'method' => 'POST',
+    'action' => route('pexcel.post', ['id' => @$item->id]),
+    'file' => true
+])
+
 
 
     <!--BUTTONS-->
@@ -24,8 +27,12 @@
         <!-- DELETE BUTTON -->
 
         <!-- SAVE BUTTON -->
-        {!! html()->submit(trans($plang_admin.'.buttons.save'))->class('btn btn-info pull-right') !!}
-        <!-- /SAVE BUTTON -->
+            @include('package-category::admin.partials.btn_submit', [
+                'label' => trans($plang_admin.'.buttons.save'),
+                'class' => 'btn btn-info pull-right'
+            ])
+
+            <!-- /SAVE BUTTON -->
     </div>
     <!--/BUTTONS-->
 
@@ -132,12 +139,25 @@
 
     <!--HIDDEN FIELDS-->
     <div class='hidden-field'>
-        {!! html()->hidden('id', @$item->id) !!}
-        {!! html()->hidden('context', $request->get('context', null)) !!}
+        @include('package-category::admin.partials.input_text', [
+            'hidden' => true,
+            'name'   => 'id',
+            'id'     => 'id',
+            'value'  => @$item->id
+        ])
+
+        @include('package-category::admin.partials.input_text', [
+            'hidden' => true,
+            'name'   => 'context',
+            'id'     => 'context',
+            'value'  => $request->get('context', null)
+        ])
+
     </div>
     <!--/HIDDEN FIELDS-->
 
-{!! html()->form()->close() !!}
+<!-- FORM CLOSE -->
+@include('package-category::admin.partials.form_close')
 <!------------------------------------------------------------------------------
 | End list of elements in pexcel form
 |------------------------------------------------------------------------------>

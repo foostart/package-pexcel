@@ -18,17 +18,20 @@ $withs = [
         @endif
     </div>
 
-    {!! html()->submit(trans($plang_admin.'.buttons.delete-in-trash'))
-    ->class('btn btn-warning delete btn-delete-all')
-    ->title(trans($plang_admin.'.hint.delete-in-trash'))
-    ->name('del-trash')
-	!!}
+    @include('package-category::admin.partials.btn_submit', [
+    'label' => trans($plang_admin.'.buttons.delete-in-trash'),
+    'class' => 'btn btn-warning delete btn-delete-all',
+    'title' => trans($plang_admin.'.hint.delete-in-trash'),
+    'name' => 'del-trash'
+])
 
-	{!! html()->submit(trans($plang_admin.'.buttons.delete-forever'))
-	    ->class('btn btn-danger delete btn-delete-all')
-	    ->title(trans($plang_admin.'.hint.delete-forever'))
-	    ->name('del-forever')
-	!!}
+    @include('package-category::admin.partials.btn_submit', [
+        'label' => trans($plang_admin.'.buttons.delete-forever'),
+        'class' => 'btn btn-danger delete btn-delete-all',
+        'title' => trans($plang_admin.'.hint.delete-forever'),
+        'name' => 'del-forever'
+    ])
+
 
 </div>
 
@@ -120,7 +123,7 @@ $withs = [
 
             <!--ID-->
             <td>
-                <a href="{!! URL::route('pexcel.edit', [   'id' => $item->id,
+                <a href="{!! URL::route('pexcel.editGet', [   'id' => $item->id,
                                                                         '_token' => csrf_token()
                                                                      ])
                                 !!}">
@@ -146,7 +149,7 @@ $withs = [
             <!--OPERATOR-->
             <td>
                 <!--edit-->
-                <a href="{!! URL::route('pexcel.edit', [   'id' => $item->id,
+                <a href="{!! URL::route('pexcel.editGet', [   'id' => $item->id,
                    '_token' => csrf_token()
                    ])
                    !!}">
@@ -201,5 +204,5 @@ $withs = [
 
 @section('footer_scripts')
 @parent
-{!! html()->script('packages/foostart/js/form-table.js') !!}
+<script src="{{ asset('packages/foostart/js/form-table.js') }}"></script>
 @stop
