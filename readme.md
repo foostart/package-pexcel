@@ -32,3 +32,8 @@ php artisan vendor:publish --provider="Maatwebsite\Excel\ExcelServiceProvider" -
 
 
 php artisan vendor:publish --provider="Maatwebsite\Excel\ExcelServiceProvider" --tag=config
+
+php artisan vendor:publish --provider="Foostart\Post\PexcelServiceProvider" --force
+php artisan vendor:publish --force
+php artisan db:seed --class=PexcelSeeder
+

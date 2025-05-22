@@ -9,14 +9,12 @@
     'file' => true
 ])
 
-
-
     <!--BUTTONS-->
     <div class='btn-form'>
         <!-- DELETE BUTTON -->
-               @if(isset($item) && $item->deleted_at)
+       @if(isset($item) && $item->deleted_at)
             <a href="{!! URL::route('pexcel.restore',['id' => $item->id, '_token' => csrf_token()]) !!}"
-               class="btn btn-success pull-right margin-left-5 restore">
+                class="btn btn-success pull-right margin-left-5 restore">
                 {!! trans($plang_admin.'.buttons.restore') !!}
             </a>
         @elseif (isset($item))
@@ -24,15 +22,15 @@
                class="btn btn-warning pull-right margin-left-5 delete">
                 {!! trans($plang_admin.'.buttons.delete') !!}
             </a>
+        @endif
         <!-- DELETE BUTTON -->
 
         <!-- SAVE BUTTON -->
-            @include('package-category::admin.partials.btn_submit', [
-                'label' => trans($plang_admin.'.buttons.save'),
-                'class' => 'btn btn-info pull-right'
-            ])
-
-            <!-- /SAVE BUTTON -->
+        @include('package-category::admin.partials.btn_submit', [
+        'label' => trans($plang_admin.'.buttons.save'),
+        'class' => 'btn btn-info pull-right'
+        ])
+        <!-- /SAVE BUTTON -->
     </div>
     <!--/BUTTONS-->
 
